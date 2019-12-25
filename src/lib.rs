@@ -1,10 +1,9 @@
-use chrono::{Date, NaiveDate, Utc};
+use chrono::NaiveDate;
 use graphql_client::*;
 use seed::browser::service::fetch::Method::Post;
 use seed::browser::service::fetch::ResponseDataResult;
 use seed::{prelude::*, *};
-use serde::{Deserialize, Serialize};
-use serde_json::json;
+use serde::Deserialize;
 
 // Model
 struct Model {
@@ -25,9 +24,9 @@ impl Default for Model {
     response_derives = "Debug,Clone"
 )]
 struct AllCustomers;
-
+#[allow(non_camel_case_types)]
 type date = NaiveDate;
-
+#[warn(non_camel_case_types)]
 #[derive(Clone, Deserialize, Debug)]
 pub struct CustomerFetchResult {
     pub data: Option<all_customers::ResponseData>,
@@ -93,6 +92,13 @@ fn customer_component(model: &Model) -> Node<Msg> {
                             }
                         })
                         .collect::<Vec<String>>()
+                        .join(", ")],
+                    td![customer
+                        .addresses
+                        .clone()
+                        .into_iter()
+                        .map(|addresses| { addresses.address1 })
+                        .collect::<Vec<String>>()
                         .join(", ")]
                 ]);
             }
@@ -102,7 +108,8 @@ fn customer_component(model: &Model) -> Node<Msg> {
                 th!["id"],
                 th!["names"],
                 th!["identifiers"],
-                th!["classes of trade"]
+                th!["classes of trade"],
+                th!["addresses"]
             ],
             customer_rows
         ]]

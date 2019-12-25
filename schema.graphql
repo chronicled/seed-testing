@@ -1,0 +1,3559 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+scalar date
+
+# expression to compare columns of type date. All fields are combined with logical 'AND'.
+input date_comparison_exp {
+  _eq: date
+  _gt: date
+  _gte: date
+  _in: [date!]
+  _is_null: Boolean
+  _lt: date
+  _lte: date
+  _neq: date
+  _nin: [date!]
+}
+
+# columns and relationships of "demo.classOfTrade"
+type demo_classOfTrade {
+  authority: String
+  description: String!
+  endDate: date
+  id: String!
+
+  # An array relationship
+  identifiers(
+    # distinct select on columns
+    distinct_on: [demo_classOfTradeIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_classOfTradeIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_classOfTradeIdentifiers_bool_exp
+  ): [demo_classOfTradeIdentifiers!]!
+
+  # An aggregated array relationship
+  identifiers_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_classOfTradeIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_classOfTradeIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_classOfTradeIdentifiers_bool_exp
+  ): demo_classOfTradeIdentifiers_aggregate!
+  mediledgerId: String
+  name: String!
+  parentClassOfTradeId: String
+  startDate: date
+  updatedAt: date!
+  validationStatus: String
+}
+
+# aggregated selection of "demo.classOfTrade"
+type demo_classOfTrade_aggregate {
+  aggregate: demo_classOfTrade_aggregate_fields
+  nodes: [demo_classOfTrade!]!
+}
+
+# aggregate fields of "demo.classOfTrade"
+type demo_classOfTrade_aggregate_fields {
+  count(columns: [demo_classOfTrade_select_column!], distinct: Boolean): Int
+  max: demo_classOfTrade_max_fields
+  min: demo_classOfTrade_min_fields
+}
+
+# order by aggregate values of table "demo.classOfTrade"
+input demo_classOfTrade_aggregate_order_by {
+  count: order_by
+  max: demo_classOfTrade_max_order_by
+  min: demo_classOfTrade_min_order_by
+}
+
+# input type for inserting array relation for remote table "demo.classOfTrade"
+input demo_classOfTrade_arr_rel_insert_input {
+  data: [demo_classOfTrade_insert_input!]!
+  on_conflict: demo_classOfTrade_on_conflict
+}
+
+# Boolean expression to filter rows from the table "demo.classOfTrade". All fields are combined with a logical 'AND'.
+input demo_classOfTrade_bool_exp {
+  _and: [demo_classOfTrade_bool_exp]
+  _not: demo_classOfTrade_bool_exp
+  _or: [demo_classOfTrade_bool_exp]
+  authority: String_comparison_exp
+  description: String_comparison_exp
+  endDate: date_comparison_exp
+  id: String_comparison_exp
+  identifiers: demo_classOfTradeIdentifiers_bool_exp
+  mediledgerId: String_comparison_exp
+  name: String_comparison_exp
+  parentClassOfTradeId: String_comparison_exp
+  startDate: date_comparison_exp
+  updatedAt: date_comparison_exp
+  validationStatus: String_comparison_exp
+}
+
+# unique or primary key constraints on table "demo.classOfTrade"
+enum demo_classOfTrade_constraint {
+  # unique or primary key constraint
+  classOfTrade_pkey
+}
+
+# input type for inserting data into table "demo.classOfTrade"
+input demo_classOfTrade_insert_input {
+  authority: String
+  description: String
+  endDate: date
+  id: String
+  identifiers: demo_classOfTradeIdentifiers_arr_rel_insert_input
+  mediledgerId: String
+  name: String
+  parentClassOfTradeId: String
+  startDate: date
+  updatedAt: date
+  validationStatus: String
+}
+
+# aggregate max on columns
+type demo_classOfTrade_max_fields {
+  authority: String
+  description: String
+  endDate: date
+  id: String
+  mediledgerId: String
+  name: String
+  parentClassOfTradeId: String
+  startDate: date
+  updatedAt: date
+  validationStatus: String
+}
+
+# order by max() on columns of table "demo.classOfTrade"
+input demo_classOfTrade_max_order_by {
+  authority: order_by
+  description: order_by
+  endDate: order_by
+  id: order_by
+  mediledgerId: order_by
+  name: order_by
+  parentClassOfTradeId: order_by
+  startDate: order_by
+  updatedAt: order_by
+  validationStatus: order_by
+}
+
+# aggregate min on columns
+type demo_classOfTrade_min_fields {
+  authority: String
+  description: String
+  endDate: date
+  id: String
+  mediledgerId: String
+  name: String
+  parentClassOfTradeId: String
+  startDate: date
+  updatedAt: date
+  validationStatus: String
+}
+
+# order by min() on columns of table "demo.classOfTrade"
+input demo_classOfTrade_min_order_by {
+  authority: order_by
+  description: order_by
+  endDate: order_by
+  id: order_by
+  mediledgerId: order_by
+  name: order_by
+  parentClassOfTradeId: order_by
+  startDate: order_by
+  updatedAt: order_by
+  validationStatus: order_by
+}
+
+# response of any mutation on the table "demo.classOfTrade"
+type demo_classOfTrade_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [demo_classOfTrade!]!
+}
+
+# input type for inserting object relation for remote table "demo.classOfTrade"
+input demo_classOfTrade_obj_rel_insert_input {
+  data: demo_classOfTrade_insert_input!
+  on_conflict: demo_classOfTrade_on_conflict
+}
+
+# on conflict condition type for table "demo.classOfTrade"
+input demo_classOfTrade_on_conflict {
+  constraint: demo_classOfTrade_constraint!
+  update_columns: [demo_classOfTrade_update_column!]!
+  where: demo_classOfTrade_bool_exp
+}
+
+# ordering options when selecting data from "demo.classOfTrade"
+input demo_classOfTrade_order_by {
+  authority: order_by
+  description: order_by
+  endDate: order_by
+  id: order_by
+  identifiers_aggregate: demo_classOfTradeIdentifiers_aggregate_order_by
+  mediledgerId: order_by
+  name: order_by
+  parentClassOfTradeId: order_by
+  startDate: order_by
+  updatedAt: order_by
+  validationStatus: order_by
+}
+
+# select columns of table "demo.classOfTrade"
+enum demo_classOfTrade_select_column {
+  # column name
+  authority
+
+  # column name
+  description
+
+  # column name
+  endDate
+
+  # column name
+  id
+
+  # column name
+  mediledgerId
+
+  # column name
+  name
+
+  # column name
+  parentClassOfTradeId
+
+  # column name
+  startDate
+
+  # column name
+  updatedAt
+
+  # column name
+  validationStatus
+}
+
+# input type for updating data in table "demo.classOfTrade"
+input demo_classOfTrade_set_input {
+  authority: String
+  description: String
+  endDate: date
+  id: String
+  mediledgerId: String
+  name: String
+  parentClassOfTradeId: String
+  startDate: date
+  updatedAt: date
+  validationStatus: String
+}
+
+# update columns of table "demo.classOfTrade"
+enum demo_classOfTrade_update_column {
+  # column name
+  authority
+
+  # column name
+  description
+
+  # column name
+  endDate
+
+  # column name
+  id
+
+  # column name
+  mediledgerId
+
+  # column name
+  name
+
+  # column name
+  parentClassOfTradeId
+
+  # column name
+  startDate
+
+  # column name
+  updatedAt
+
+  # column name
+  validationStatus
+}
+
+# columns and relationships of "demo.classOfTradeIdentifiers"
+type demo_classOfTradeIdentifiers {
+  classOfTradeId: String!
+  id: String!
+}
+
+# aggregated selection of "demo.classOfTradeIdentifiers"
+type demo_classOfTradeIdentifiers_aggregate {
+  aggregate: demo_classOfTradeIdentifiers_aggregate_fields
+  nodes: [demo_classOfTradeIdentifiers!]!
+}
+
+# aggregate fields of "demo.classOfTradeIdentifiers"
+type demo_classOfTradeIdentifiers_aggregate_fields {
+  count(columns: [demo_classOfTradeIdentifiers_select_column!], distinct: Boolean): Int
+  max: demo_classOfTradeIdentifiers_max_fields
+  min: demo_classOfTradeIdentifiers_min_fields
+}
+
+# order by aggregate values of table "demo.classOfTradeIdentifiers"
+input demo_classOfTradeIdentifiers_aggregate_order_by {
+  count: order_by
+  max: demo_classOfTradeIdentifiers_max_order_by
+  min: demo_classOfTradeIdentifiers_min_order_by
+}
+
+# input type for inserting array relation for remote table "demo.classOfTradeIdentifiers"
+input demo_classOfTradeIdentifiers_arr_rel_insert_input {
+  data: [demo_classOfTradeIdentifiers_insert_input!]!
+  on_conflict: demo_classOfTradeIdentifiers_on_conflict
+}
+
+# Boolean expression to filter rows from the table "demo.classOfTradeIdentifiers".
+# All fields are combined with a logical 'AND'.
+input demo_classOfTradeIdentifiers_bool_exp {
+  _and: [demo_classOfTradeIdentifiers_bool_exp]
+  _not: demo_classOfTradeIdentifiers_bool_exp
+  _or: [demo_classOfTradeIdentifiers_bool_exp]
+  classOfTradeId: String_comparison_exp
+  id: String_comparison_exp
+}
+
+# unique or primary key constraints on table "demo.classOfTradeIdentifiers"
+enum demo_classOfTradeIdentifiers_constraint {
+  # unique or primary key constraint
+  classOfTradeIdentifiers_pkey
+}
+
+# input type for inserting data into table "demo.classOfTradeIdentifiers"
+input demo_classOfTradeIdentifiers_insert_input {
+  classOfTradeId: String
+  id: String
+}
+
+# aggregate max on columns
+type demo_classOfTradeIdentifiers_max_fields {
+  classOfTradeId: String
+  id: String
+}
+
+# order by max() on columns of table "demo.classOfTradeIdentifiers"
+input demo_classOfTradeIdentifiers_max_order_by {
+  classOfTradeId: order_by
+  id: order_by
+}
+
+# aggregate min on columns
+type demo_classOfTradeIdentifiers_min_fields {
+  classOfTradeId: String
+  id: String
+}
+
+# order by min() on columns of table "demo.classOfTradeIdentifiers"
+input demo_classOfTradeIdentifiers_min_order_by {
+  classOfTradeId: order_by
+  id: order_by
+}
+
+# response of any mutation on the table "demo.classOfTradeIdentifiers"
+type demo_classOfTradeIdentifiers_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [demo_classOfTradeIdentifiers!]!
+}
+
+# input type for inserting object relation for remote table "demo.classOfTradeIdentifiers"
+input demo_classOfTradeIdentifiers_obj_rel_insert_input {
+  data: demo_classOfTradeIdentifiers_insert_input!
+  on_conflict: demo_classOfTradeIdentifiers_on_conflict
+}
+
+# on conflict condition type for table "demo.classOfTradeIdentifiers"
+input demo_classOfTradeIdentifiers_on_conflict {
+  constraint: demo_classOfTradeIdentifiers_constraint!
+  update_columns: [demo_classOfTradeIdentifiers_update_column!]!
+  where: demo_classOfTradeIdentifiers_bool_exp
+}
+
+# ordering options when selecting data from "demo.classOfTradeIdentifiers"
+input demo_classOfTradeIdentifiers_order_by {
+  classOfTradeId: order_by
+  id: order_by
+}
+
+# select columns of table "demo.classOfTradeIdentifiers"
+enum demo_classOfTradeIdentifiers_select_column {
+  # column name
+  classOfTradeId
+
+  # column name
+  id
+}
+
+# input type for updating data in table "demo.classOfTradeIdentifiers"
+input demo_classOfTradeIdentifiers_set_input {
+  classOfTradeId: String
+  id: String
+}
+
+# update columns of table "demo.classOfTradeIdentifiers"
+enum demo_classOfTradeIdentifiers_update_column {
+  # column name
+  classOfTradeId
+
+  # column name
+  id
+}
+
+# columns and relationships of "demo.customerAddresses"
+type demo_customerAddresses {
+  address1: String!
+  address2: String!
+  addressType: String!
+  city: String!
+
+  # An object relationship
+  customer: demo_customers
+  customerId: String
+  endDate: date!
+  id: String!
+  startDate: date!
+  state: String!
+  zipCode: String!
+}
+
+# aggregated selection of "demo.customerAddresses"
+type demo_customerAddresses_aggregate {
+  aggregate: demo_customerAddresses_aggregate_fields
+  nodes: [demo_customerAddresses!]!
+}
+
+# aggregate fields of "demo.customerAddresses"
+type demo_customerAddresses_aggregate_fields {
+  count(columns: [demo_customerAddresses_select_column!], distinct: Boolean): Int
+  max: demo_customerAddresses_max_fields
+  min: demo_customerAddresses_min_fields
+}
+
+# order by aggregate values of table "demo.customerAddresses"
+input demo_customerAddresses_aggregate_order_by {
+  count: order_by
+  max: demo_customerAddresses_max_order_by
+  min: demo_customerAddresses_min_order_by
+}
+
+# input type for inserting array relation for remote table "demo.customerAddresses"
+input demo_customerAddresses_arr_rel_insert_input {
+  data: [demo_customerAddresses_insert_input!]!
+  on_conflict: demo_customerAddresses_on_conflict
+}
+
+# Boolean expression to filter rows from the table "demo.customerAddresses". All fields are combined with a logical 'AND'.
+input demo_customerAddresses_bool_exp {
+  _and: [demo_customerAddresses_bool_exp]
+  _not: demo_customerAddresses_bool_exp
+  _or: [demo_customerAddresses_bool_exp]
+  address1: String_comparison_exp
+  address2: String_comparison_exp
+  addressType: String_comparison_exp
+  city: String_comparison_exp
+  customer: demo_customers_bool_exp
+  customerId: String_comparison_exp
+  endDate: date_comparison_exp
+  id: String_comparison_exp
+  startDate: date_comparison_exp
+  state: String_comparison_exp
+  zipCode: String_comparison_exp
+}
+
+# unique or primary key constraints on table "demo.customerAddresses"
+enum demo_customerAddresses_constraint {
+  # unique or primary key constraint
+  addresses_id_key
+
+  # unique or primary key constraint
+  addresses_pkey
+}
+
+# input type for inserting data into table "demo.customerAddresses"
+input demo_customerAddresses_insert_input {
+  address1: String
+  address2: String
+  addressType: String
+  city: String
+  customer: demo_customers_obj_rel_insert_input
+  customerId: String
+  endDate: date
+  id: String
+  startDate: date
+  state: String
+  zipCode: String
+}
+
+# aggregate max on columns
+type demo_customerAddresses_max_fields {
+  address1: String
+  address2: String
+  addressType: String
+  city: String
+  customerId: String
+  endDate: date
+  id: String
+  startDate: date
+  state: String
+  zipCode: String
+}
+
+# order by max() on columns of table "demo.customerAddresses"
+input demo_customerAddresses_max_order_by {
+  address1: order_by
+  address2: order_by
+  addressType: order_by
+  city: order_by
+  customerId: order_by
+  endDate: order_by
+  id: order_by
+  startDate: order_by
+  state: order_by
+  zipCode: order_by
+}
+
+# aggregate min on columns
+type demo_customerAddresses_min_fields {
+  address1: String
+  address2: String
+  addressType: String
+  city: String
+  customerId: String
+  endDate: date
+  id: String
+  startDate: date
+  state: String
+  zipCode: String
+}
+
+# order by min() on columns of table "demo.customerAddresses"
+input demo_customerAddresses_min_order_by {
+  address1: order_by
+  address2: order_by
+  addressType: order_by
+  city: order_by
+  customerId: order_by
+  endDate: order_by
+  id: order_by
+  startDate: order_by
+  state: order_by
+  zipCode: order_by
+}
+
+# response of any mutation on the table "demo.customerAddresses"
+type demo_customerAddresses_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [demo_customerAddresses!]!
+}
+
+# input type for inserting object relation for remote table "demo.customerAddresses"
+input demo_customerAddresses_obj_rel_insert_input {
+  data: demo_customerAddresses_insert_input!
+  on_conflict: demo_customerAddresses_on_conflict
+}
+
+# on conflict condition type for table "demo.customerAddresses"
+input demo_customerAddresses_on_conflict {
+  constraint: demo_customerAddresses_constraint!
+  update_columns: [demo_customerAddresses_update_column!]!
+  where: demo_customerAddresses_bool_exp
+}
+
+# ordering options when selecting data from "demo.customerAddresses"
+input demo_customerAddresses_order_by {
+  address1: order_by
+  address2: order_by
+  addressType: order_by
+  city: order_by
+  customer: demo_customers_order_by
+  customerId: order_by
+  endDate: order_by
+  id: order_by
+  startDate: order_by
+  state: order_by
+  zipCode: order_by
+}
+
+# select columns of table "demo.customerAddresses"
+enum demo_customerAddresses_select_column {
+  # column name
+  address1
+
+  # column name
+  address2
+
+  # column name
+  addressType
+
+  # column name
+  city
+
+  # column name
+  customerId
+
+  # column name
+  endDate
+
+  # column name
+  id
+
+  # column name
+  startDate
+
+  # column name
+  state
+
+  # column name
+  zipCode
+}
+
+# input type for updating data in table "demo.customerAddresses"
+input demo_customerAddresses_set_input {
+  address1: String
+  address2: String
+  addressType: String
+  city: String
+  customerId: String
+  endDate: date
+  id: String
+  startDate: date
+  state: String
+  zipCode: String
+}
+
+# update columns of table "demo.customerAddresses"
+enum demo_customerAddresses_update_column {
+  # column name
+  address1
+
+  # column name
+  address2
+
+  # column name
+  addressType
+
+  # column name
+  city
+
+  # column name
+  customerId
+
+  # column name
+  endDate
+
+  # column name
+  id
+
+  # column name
+  startDate
+
+  # column name
+  state
+
+  # column name
+  zipCode
+}
+
+# columns and relationships of "demo.customerClassesOfTrade"
+type demo_customerClassesOfTrade {
+  # An object relationship
+  classOfTrade: demo_classOfTrade
+  classOfTradeId: String!
+
+  # An object relationship
+  customer: demo_customers
+  customerId: String!
+  endDate: date!
+  startDate: date!
+}
+
+# aggregated selection of "demo.customerClassesOfTrade"
+type demo_customerClassesOfTrade_aggregate {
+  aggregate: demo_customerClassesOfTrade_aggregate_fields
+  nodes: [demo_customerClassesOfTrade!]!
+}
+
+# aggregate fields of "demo.customerClassesOfTrade"
+type demo_customerClassesOfTrade_aggregate_fields {
+  count(columns: [demo_customerClassesOfTrade_select_column!], distinct: Boolean): Int
+  max: demo_customerClassesOfTrade_max_fields
+  min: demo_customerClassesOfTrade_min_fields
+}
+
+# order by aggregate values of table "demo.customerClassesOfTrade"
+input demo_customerClassesOfTrade_aggregate_order_by {
+  count: order_by
+  max: demo_customerClassesOfTrade_max_order_by
+  min: demo_customerClassesOfTrade_min_order_by
+}
+
+# input type for inserting array relation for remote table "demo.customerClassesOfTrade"
+input demo_customerClassesOfTrade_arr_rel_insert_input {
+  data: [demo_customerClassesOfTrade_insert_input!]!
+  on_conflict: demo_customerClassesOfTrade_on_conflict
+}
+
+# Boolean expression to filter rows from the table "demo.customerClassesOfTrade".
+# All fields are combined with a logical 'AND'.
+input demo_customerClassesOfTrade_bool_exp {
+  _and: [demo_customerClassesOfTrade_bool_exp]
+  _not: demo_customerClassesOfTrade_bool_exp
+  _or: [demo_customerClassesOfTrade_bool_exp]
+  classOfTrade: demo_classOfTrade_bool_exp
+  classOfTradeId: String_comparison_exp
+  customer: demo_customers_bool_exp
+  customerId: String_comparison_exp
+  endDate: date_comparison_exp
+  startDate: date_comparison_exp
+}
+
+# unique or primary key constraints on table "demo.customerClassesOfTrade"
+enum demo_customerClassesOfTrade_constraint {
+  # unique or primary key constraint
+  customerClassesOfTrade_pkey
+}
+
+# input type for inserting data into table "demo.customerClassesOfTrade"
+input demo_customerClassesOfTrade_insert_input {
+  classOfTrade: demo_classOfTrade_obj_rel_insert_input
+  classOfTradeId: String
+  customer: demo_customers_obj_rel_insert_input
+  customerId: String
+  endDate: date
+  startDate: date
+}
+
+# aggregate max on columns
+type demo_customerClassesOfTrade_max_fields {
+  classOfTradeId: String
+  customerId: String
+  endDate: date
+  startDate: date
+}
+
+# order by max() on columns of table "demo.customerClassesOfTrade"
+input demo_customerClassesOfTrade_max_order_by {
+  classOfTradeId: order_by
+  customerId: order_by
+  endDate: order_by
+  startDate: order_by
+}
+
+# aggregate min on columns
+type demo_customerClassesOfTrade_min_fields {
+  classOfTradeId: String
+  customerId: String
+  endDate: date
+  startDate: date
+}
+
+# order by min() on columns of table "demo.customerClassesOfTrade"
+input demo_customerClassesOfTrade_min_order_by {
+  classOfTradeId: order_by
+  customerId: order_by
+  endDate: order_by
+  startDate: order_by
+}
+
+# response of any mutation on the table "demo.customerClassesOfTrade"
+type demo_customerClassesOfTrade_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [demo_customerClassesOfTrade!]!
+}
+
+# input type for inserting object relation for remote table "demo.customerClassesOfTrade"
+input demo_customerClassesOfTrade_obj_rel_insert_input {
+  data: demo_customerClassesOfTrade_insert_input!
+  on_conflict: demo_customerClassesOfTrade_on_conflict
+}
+
+# on conflict condition type for table "demo.customerClassesOfTrade"
+input demo_customerClassesOfTrade_on_conflict {
+  constraint: demo_customerClassesOfTrade_constraint!
+  update_columns: [demo_customerClassesOfTrade_update_column!]!
+  where: demo_customerClassesOfTrade_bool_exp
+}
+
+# ordering options when selecting data from "demo.customerClassesOfTrade"
+input demo_customerClassesOfTrade_order_by {
+  classOfTrade: demo_classOfTrade_order_by
+  classOfTradeId: order_by
+  customer: demo_customers_order_by
+  customerId: order_by
+  endDate: order_by
+  startDate: order_by
+}
+
+# select columns of table "demo.customerClassesOfTrade"
+enum demo_customerClassesOfTrade_select_column {
+  # column name
+  classOfTradeId
+
+  # column name
+  customerId
+
+  # column name
+  endDate
+
+  # column name
+  startDate
+}
+
+# input type for updating data in table "demo.customerClassesOfTrade"
+input demo_customerClassesOfTrade_set_input {
+  classOfTradeId: String
+  customerId: String
+  endDate: date
+  startDate: date
+}
+
+# update columns of table "demo.customerClassesOfTrade"
+enum demo_customerClassesOfTrade_update_column {
+  # column name
+  classOfTradeId
+
+  # column name
+  customerId
+
+  # column name
+  endDate
+
+  # column name
+  startDate
+}
+
+# columns and relationships of "demo.customerIdentifiers"
+type demo_customerIdentifiers {
+  id: String
+  identifier: String!
+}
+
+# aggregated selection of "demo.customerIdentifiers"
+type demo_customerIdentifiers_aggregate {
+  aggregate: demo_customerIdentifiers_aggregate_fields
+  nodes: [demo_customerIdentifiers!]!
+}
+
+# aggregate fields of "demo.customerIdentifiers"
+type demo_customerIdentifiers_aggregate_fields {
+  count(columns: [demo_customerIdentifiers_select_column!], distinct: Boolean): Int
+  max: demo_customerIdentifiers_max_fields
+  min: demo_customerIdentifiers_min_fields
+}
+
+# order by aggregate values of table "demo.customerIdentifiers"
+input demo_customerIdentifiers_aggregate_order_by {
+  count: order_by
+  max: demo_customerIdentifiers_max_order_by
+  min: demo_customerIdentifiers_min_order_by
+}
+
+# input type for inserting array relation for remote table "demo.customerIdentifiers"
+input demo_customerIdentifiers_arr_rel_insert_input {
+  data: [demo_customerIdentifiers_insert_input!]!
+  on_conflict: demo_customerIdentifiers_on_conflict
+}
+
+# Boolean expression to filter rows from the table "demo.customerIdentifiers". All fields are combined with a logical 'AND'.
+input demo_customerIdentifiers_bool_exp {
+  _and: [demo_customerIdentifiers_bool_exp]
+  _not: demo_customerIdentifiers_bool_exp
+  _or: [demo_customerIdentifiers_bool_exp]
+  id: String_comparison_exp
+  identifier: String_comparison_exp
+}
+
+# unique or primary key constraints on table "demo.customerIdentifiers"
+enum demo_customerIdentifiers_constraint {
+  # unique or primary key constraint
+  identifiers_pkey
+}
+
+# input type for inserting data into table "demo.customerIdentifiers"
+input demo_customerIdentifiers_insert_input {
+  id: String
+  identifier: String
+}
+
+# aggregate max on columns
+type demo_customerIdentifiers_max_fields {
+  id: String
+  identifier: String
+}
+
+# order by max() on columns of table "demo.customerIdentifiers"
+input demo_customerIdentifiers_max_order_by {
+  id: order_by
+  identifier: order_by
+}
+
+# aggregate min on columns
+type demo_customerIdentifiers_min_fields {
+  id: String
+  identifier: String
+}
+
+# order by min() on columns of table "demo.customerIdentifiers"
+input demo_customerIdentifiers_min_order_by {
+  id: order_by
+  identifier: order_by
+}
+
+# response of any mutation on the table "demo.customerIdentifiers"
+type demo_customerIdentifiers_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [demo_customerIdentifiers!]!
+}
+
+# input type for inserting object relation for remote table "demo.customerIdentifiers"
+input demo_customerIdentifiers_obj_rel_insert_input {
+  data: demo_customerIdentifiers_insert_input!
+  on_conflict: demo_customerIdentifiers_on_conflict
+}
+
+# on conflict condition type for table "demo.customerIdentifiers"
+input demo_customerIdentifiers_on_conflict {
+  constraint: demo_customerIdentifiers_constraint!
+  update_columns: [demo_customerIdentifiers_update_column!]!
+  where: demo_customerIdentifiers_bool_exp
+}
+
+# ordering options when selecting data from "demo.customerIdentifiers"
+input demo_customerIdentifiers_order_by {
+  id: order_by
+  identifier: order_by
+}
+
+# select columns of table "demo.customerIdentifiers"
+enum demo_customerIdentifiers_select_column {
+  # column name
+  id
+
+  # column name
+  identifier
+}
+
+# input type for updating data in table "demo.customerIdentifiers"
+input demo_customerIdentifiers_set_input {
+  id: String
+  identifier: String
+}
+
+# update columns of table "demo.customerIdentifiers"
+enum demo_customerIdentifiers_update_column {
+  # column name
+  id
+
+  # column name
+  identifier
+}
+
+# columns and relationships of "demo.customerList"
+type demo_customerList {
+  # An object relationship
+  customer: demo_customers
+  customerId: String!
+  endDate: date!
+
+  # An object relationship
+  list: demo_lists
+  listId: String!
+  startDate: date!
+}
+
+# aggregated selection of "demo.customerList"
+type demo_customerList_aggregate {
+  aggregate: demo_customerList_aggregate_fields
+  nodes: [demo_customerList!]!
+}
+
+# aggregate fields of "demo.customerList"
+type demo_customerList_aggregate_fields {
+  count(columns: [demo_customerList_select_column!], distinct: Boolean): Int
+  max: demo_customerList_max_fields
+  min: demo_customerList_min_fields
+}
+
+# order by aggregate values of table "demo.customerList"
+input demo_customerList_aggregate_order_by {
+  count: order_by
+  max: demo_customerList_max_order_by
+  min: demo_customerList_min_order_by
+}
+
+# input type for inserting array relation for remote table "demo.customerList"
+input demo_customerList_arr_rel_insert_input {
+  data: [demo_customerList_insert_input!]!
+  on_conflict: demo_customerList_on_conflict
+}
+
+# Boolean expression to filter rows from the table "demo.customerList". All fields are combined with a logical 'AND'.
+input demo_customerList_bool_exp {
+  _and: [demo_customerList_bool_exp]
+  _not: demo_customerList_bool_exp
+  _or: [demo_customerList_bool_exp]
+  customer: demo_customers_bool_exp
+  customerId: String_comparison_exp
+  endDate: date_comparison_exp
+  list: demo_lists_bool_exp
+  listId: String_comparison_exp
+  startDate: date_comparison_exp
+}
+
+# unique or primary key constraints on table "demo.customerList"
+enum demo_customerList_constraint {
+  # unique or primary key constraint
+  customerList_pkey
+}
+
+# input type for inserting data into table "demo.customerList"
+input demo_customerList_insert_input {
+  customer: demo_customers_obj_rel_insert_input
+  customerId: String
+  endDate: date
+  list: demo_lists_obj_rel_insert_input
+  listId: String
+  startDate: date
+}
+
+# aggregate max on columns
+type demo_customerList_max_fields {
+  customerId: String
+  endDate: date
+  listId: String
+  startDate: date
+}
+
+# order by max() on columns of table "demo.customerList"
+input demo_customerList_max_order_by {
+  customerId: order_by
+  endDate: order_by
+  listId: order_by
+  startDate: order_by
+}
+
+# aggregate min on columns
+type demo_customerList_min_fields {
+  customerId: String
+  endDate: date
+  listId: String
+  startDate: date
+}
+
+# order by min() on columns of table "demo.customerList"
+input demo_customerList_min_order_by {
+  customerId: order_by
+  endDate: order_by
+  listId: order_by
+  startDate: order_by
+}
+
+# response of any mutation on the table "demo.customerList"
+type demo_customerList_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [demo_customerList!]!
+}
+
+# input type for inserting object relation for remote table "demo.customerList"
+input demo_customerList_obj_rel_insert_input {
+  data: demo_customerList_insert_input!
+  on_conflict: demo_customerList_on_conflict
+}
+
+# on conflict condition type for table "demo.customerList"
+input demo_customerList_on_conflict {
+  constraint: demo_customerList_constraint!
+  update_columns: [demo_customerList_update_column!]!
+  where: demo_customerList_bool_exp
+}
+
+# ordering options when selecting data from "demo.customerList"
+input demo_customerList_order_by {
+  customer: demo_customers_order_by
+  customerId: order_by
+  endDate: order_by
+  list: demo_lists_order_by
+  listId: order_by
+  startDate: order_by
+}
+
+# select columns of table "demo.customerList"
+enum demo_customerList_select_column {
+  # column name
+  customerId
+
+  # column name
+  endDate
+
+  # column name
+  listId
+
+  # column name
+  startDate
+}
+
+# input type for updating data in table "demo.customerList"
+input demo_customerList_set_input {
+  customerId: String
+  endDate: date
+  listId: String
+  startDate: date
+}
+
+# update columns of table "demo.customerList"
+enum demo_customerList_update_column {
+  # column name
+  customerId
+
+  # column name
+  endDate
+
+  # column name
+  listId
+
+  # column name
+  startDate
+}
+
+# columns and relationships of "demo.customerRelationships"
+type demo_customerRelationships {
+  # An object relationship
+  fromCustomer: demo_customers
+  fromId: String!
+
+  # An object relationship
+  toCustomer: demo_customers
+  toId: String!
+}
+
+# aggregated selection of "demo.customerRelationships"
+type demo_customerRelationships_aggregate {
+  aggregate: demo_customerRelationships_aggregate_fields
+  nodes: [demo_customerRelationships!]!
+}
+
+# aggregate fields of "demo.customerRelationships"
+type demo_customerRelationships_aggregate_fields {
+  count(columns: [demo_customerRelationships_select_column!], distinct: Boolean): Int
+  max: demo_customerRelationships_max_fields
+  min: demo_customerRelationships_min_fields
+}
+
+# order by aggregate values of table "demo.customerRelationships"
+input demo_customerRelationships_aggregate_order_by {
+  count: order_by
+  max: demo_customerRelationships_max_order_by
+  min: demo_customerRelationships_min_order_by
+}
+
+# input type for inserting array relation for remote table "demo.customerRelationships"
+input demo_customerRelationships_arr_rel_insert_input {
+  data: [demo_customerRelationships_insert_input!]!
+  on_conflict: demo_customerRelationships_on_conflict
+}
+
+# Boolean expression to filter rows from the table "demo.customerRelationships". All fields are combined with a logical 'AND'.
+input demo_customerRelationships_bool_exp {
+  _and: [demo_customerRelationships_bool_exp]
+  _not: demo_customerRelationships_bool_exp
+  _or: [demo_customerRelationships_bool_exp]
+  fromCustomer: demo_customers_bool_exp
+  fromId: String_comparison_exp
+  toCustomer: demo_customers_bool_exp
+  toId: String_comparison_exp
+}
+
+# unique or primary key constraints on table "demo.customerRelationships"
+enum demo_customerRelationships_constraint {
+  # unique or primary key constraint
+  relationships_pkey
+}
+
+# input type for inserting data into table "demo.customerRelationships"
+input demo_customerRelationships_insert_input {
+  fromCustomer: demo_customers_obj_rel_insert_input
+  fromId: String
+  toCustomer: demo_customers_obj_rel_insert_input
+  toId: String
+}
+
+# aggregate max on columns
+type demo_customerRelationships_max_fields {
+  fromId: String
+  toId: String
+}
+
+# order by max() on columns of table "demo.customerRelationships"
+input demo_customerRelationships_max_order_by {
+  fromId: order_by
+  toId: order_by
+}
+
+# aggregate min on columns
+type demo_customerRelationships_min_fields {
+  fromId: String
+  toId: String
+}
+
+# order by min() on columns of table "demo.customerRelationships"
+input demo_customerRelationships_min_order_by {
+  fromId: order_by
+  toId: order_by
+}
+
+# response of any mutation on the table "demo.customerRelationships"
+type demo_customerRelationships_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [demo_customerRelationships!]!
+}
+
+# input type for inserting object relation for remote table "demo.customerRelationships"
+input demo_customerRelationships_obj_rel_insert_input {
+  data: demo_customerRelationships_insert_input!
+  on_conflict: demo_customerRelationships_on_conflict
+}
+
+# on conflict condition type for table "demo.customerRelationships"
+input demo_customerRelationships_on_conflict {
+  constraint: demo_customerRelationships_constraint!
+  update_columns: [demo_customerRelationships_update_column!]!
+  where: demo_customerRelationships_bool_exp
+}
+
+# ordering options when selecting data from "demo.customerRelationships"
+input demo_customerRelationships_order_by {
+  fromCustomer: demo_customers_order_by
+  fromId: order_by
+  toCustomer: demo_customers_order_by
+  toId: order_by
+}
+
+# select columns of table "demo.customerRelationships"
+enum demo_customerRelationships_select_column {
+  # column name
+  fromId
+
+  # column name
+  toId
+}
+
+# input type for updating data in table "demo.customerRelationships"
+input demo_customerRelationships_set_input {
+  fromId: String
+  toId: String
+}
+
+# update columns of table "demo.customerRelationships"
+enum demo_customerRelationships_update_column {
+  # column name
+  fromId
+
+  # column name
+  toId
+}
+
+# The main customers table
+#
+#
+# columns and relationships of "demo.customers"
+#
+type demo_customers {
+  # An array relationship
+  addresses(
+    # distinct select on columns
+    distinct_on: [demo_customerAddresses_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerAddresses_order_by!]
+
+    # filter the rows returned
+    where: demo_customerAddresses_bool_exp
+  ): [demo_customerAddresses!]!
+
+  # An aggregated array relationship
+  addresses_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerAddresses_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerAddresses_order_by!]
+
+    # filter the rows returned
+    where: demo_customerAddresses_bool_exp
+  ): demo_customerAddresses_aggregate!
+
+  # An array relationship
+  classesOfTrade(
+    # distinct select on columns
+    distinct_on: [demo_customerClassesOfTrade_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerClassesOfTrade_order_by!]
+
+    # filter the rows returned
+    where: demo_customerClassesOfTrade_bool_exp
+  ): [demo_customerClassesOfTrade!]!
+
+  # An aggregated array relationship
+  classesOfTrade_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerClassesOfTrade_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerClassesOfTrade_order_by!]
+
+    # filter the rows returned
+    where: demo_customerClassesOfTrade_bool_exp
+  ): demo_customerClassesOfTrade_aggregate!
+  endDate: date!
+  id: String!
+
+  # An array relationship
+  identifiers(
+    # distinct select on columns
+    distinct_on: [demo_customerIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_customerIdentifiers_bool_exp
+  ): [demo_customerIdentifiers!]!
+
+  # An aggregated array relationship
+  identifiers_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_customerIdentifiers_bool_exp
+  ): demo_customerIdentifiers_aggregate!
+
+  # An array relationship
+  lists(
+    # distinct select on columns
+    distinct_on: [demo_customerList_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerList_order_by!]
+
+    # filter the rows returned
+    where: demo_customerList_bool_exp
+  ): [demo_customerList!]!
+
+  # An aggregated array relationship
+  lists_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerList_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerList_order_by!]
+
+    # filter the rows returned
+    where: demo_customerList_bool_exp
+  ): demo_customerList_aggregate!
+
+  # An array relationship
+  names(
+    # distinct select on columns
+    distinct_on: [demo_names_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_names_order_by!]
+
+    # filter the rows returned
+    where: demo_names_bool_exp
+  ): [demo_names!]!
+
+  # An aggregated array relationship
+  names_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_names_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_names_order_by!]
+
+    # filter the rows returned
+    where: demo_names_bool_exp
+  ): demo_names_aggregate!
+  parentId: String
+  parentRevision: Int
+  revision: Int!
+  startDate: date!
+  updatedAt: date!
+}
+
+# aggregated selection of "demo.customers"
+type demo_customers_aggregate {
+  aggregate: demo_customers_aggregate_fields
+  nodes: [demo_customers!]!
+}
+
+# aggregate fields of "demo.customers"
+type demo_customers_aggregate_fields {
+  avg: demo_customers_avg_fields
+  count(columns: [demo_customers_select_column!], distinct: Boolean): Int
+  max: demo_customers_max_fields
+  min: demo_customers_min_fields
+  stddev: demo_customers_stddev_fields
+  stddev_pop: demo_customers_stddev_pop_fields
+  stddev_samp: demo_customers_stddev_samp_fields
+  sum: demo_customers_sum_fields
+  var_pop: demo_customers_var_pop_fields
+  var_samp: demo_customers_var_samp_fields
+  variance: demo_customers_variance_fields
+}
+
+# order by aggregate values of table "demo.customers"
+input demo_customers_aggregate_order_by {
+  avg: demo_customers_avg_order_by
+  count: order_by
+  max: demo_customers_max_order_by
+  min: demo_customers_min_order_by
+  stddev: demo_customers_stddev_order_by
+  stddev_pop: demo_customers_stddev_pop_order_by
+  stddev_samp: demo_customers_stddev_samp_order_by
+  sum: demo_customers_sum_order_by
+  var_pop: demo_customers_var_pop_order_by
+  var_samp: demo_customers_var_samp_order_by
+  variance: demo_customers_variance_order_by
+}
+
+# input type for inserting array relation for remote table "demo.customers"
+input demo_customers_arr_rel_insert_input {
+  data: [demo_customers_insert_input!]!
+  on_conflict: demo_customers_on_conflict
+}
+
+# aggregate avg on columns
+type demo_customers_avg_fields {
+  parentRevision: Float
+  revision: Float
+}
+
+# order by avg() on columns of table "demo.customers"
+input demo_customers_avg_order_by {
+  parentRevision: order_by
+  revision: order_by
+}
+
+# Boolean expression to filter rows from the table "demo.customers". All fields are combined with a logical 'AND'.
+input demo_customers_bool_exp {
+  _and: [demo_customers_bool_exp]
+  _not: demo_customers_bool_exp
+  _or: [demo_customers_bool_exp]
+  addresses: demo_customerAddresses_bool_exp
+  classesOfTrade: demo_customerClassesOfTrade_bool_exp
+  endDate: date_comparison_exp
+  id: String_comparison_exp
+  identifiers: demo_customerIdentifiers_bool_exp
+  lists: demo_customerList_bool_exp
+  names: demo_names_bool_exp
+  parentId: String_comparison_exp
+  parentRevision: Int_comparison_exp
+  revision: Int_comparison_exp
+  startDate: date_comparison_exp
+  updatedAt: date_comparison_exp
+}
+
+# unique or primary key constraints on table "demo.customers"
+enum demo_customers_constraint {
+  # unique or primary key constraint
+  customers_pkey
+}
+
+# input type for incrementing integer columne in table "demo.customers"
+input demo_customers_inc_input {
+  parentRevision: Int
+  revision: Int
+}
+
+# input type for inserting data into table "demo.customers"
+input demo_customers_insert_input {
+  addresses: demo_customerAddresses_arr_rel_insert_input
+  classesOfTrade: demo_customerClassesOfTrade_arr_rel_insert_input
+  endDate: date
+  id: String
+  identifiers: demo_customerIdentifiers_arr_rel_insert_input
+  lists: demo_customerList_arr_rel_insert_input
+  names: demo_names_arr_rel_insert_input
+  parentId: String
+  parentRevision: Int
+  revision: Int
+  startDate: date
+  updatedAt: date
+}
+
+# aggregate max on columns
+type demo_customers_max_fields {
+  endDate: date
+  id: String
+  parentId: String
+  parentRevision: Int
+  revision: Int
+  startDate: date
+  updatedAt: date
+}
+
+# order by max() on columns of table "demo.customers"
+input demo_customers_max_order_by {
+  endDate: order_by
+  id: order_by
+  parentId: order_by
+  parentRevision: order_by
+  revision: order_by
+  startDate: order_by
+  updatedAt: order_by
+}
+
+# aggregate min on columns
+type demo_customers_min_fields {
+  endDate: date
+  id: String
+  parentId: String
+  parentRevision: Int
+  revision: Int
+  startDate: date
+  updatedAt: date
+}
+
+# order by min() on columns of table "demo.customers"
+input demo_customers_min_order_by {
+  endDate: order_by
+  id: order_by
+  parentId: order_by
+  parentRevision: order_by
+  revision: order_by
+  startDate: order_by
+  updatedAt: order_by
+}
+
+# response of any mutation on the table "demo.customers"
+type demo_customers_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [demo_customers!]!
+}
+
+# input type for inserting object relation for remote table "demo.customers"
+input demo_customers_obj_rel_insert_input {
+  data: demo_customers_insert_input!
+  on_conflict: demo_customers_on_conflict
+}
+
+# on conflict condition type for table "demo.customers"
+input demo_customers_on_conflict {
+  constraint: demo_customers_constraint!
+  update_columns: [demo_customers_update_column!]!
+  where: demo_customers_bool_exp
+}
+
+# ordering options when selecting data from "demo.customers"
+input demo_customers_order_by {
+  addresses_aggregate: demo_customerAddresses_aggregate_order_by
+  classesOfTrade_aggregate: demo_customerClassesOfTrade_aggregate_order_by
+  endDate: order_by
+  id: order_by
+  identifiers_aggregate: demo_customerIdentifiers_aggregate_order_by
+  lists_aggregate: demo_customerList_aggregate_order_by
+  names_aggregate: demo_names_aggregate_order_by
+  parentId: order_by
+  parentRevision: order_by
+  revision: order_by
+  startDate: order_by
+  updatedAt: order_by
+}
+
+# select columns of table "demo.customers"
+enum demo_customers_select_column {
+  # column name
+  endDate
+
+  # column name
+  id
+
+  # column name
+  parentId
+
+  # column name
+  parentRevision
+
+  # column name
+  revision
+
+  # column name
+  startDate
+
+  # column name
+  updatedAt
+}
+
+# input type for updating data in table "demo.customers"
+input demo_customers_set_input {
+  endDate: date
+  id: String
+  parentId: String
+  parentRevision: Int
+  revision: Int
+  startDate: date
+  updatedAt: date
+}
+
+# aggregate stddev on columns
+type demo_customers_stddev_fields {
+  parentRevision: Float
+  revision: Float
+}
+
+# order by stddev() on columns of table "demo.customers"
+input demo_customers_stddev_order_by {
+  parentRevision: order_by
+  revision: order_by
+}
+
+# aggregate stddev_pop on columns
+type demo_customers_stddev_pop_fields {
+  parentRevision: Float
+  revision: Float
+}
+
+# order by stddev_pop() on columns of table "demo.customers"
+input demo_customers_stddev_pop_order_by {
+  parentRevision: order_by
+  revision: order_by
+}
+
+# aggregate stddev_samp on columns
+type demo_customers_stddev_samp_fields {
+  parentRevision: Float
+  revision: Float
+}
+
+# order by stddev_samp() on columns of table "demo.customers"
+input demo_customers_stddev_samp_order_by {
+  parentRevision: order_by
+  revision: order_by
+}
+
+# aggregate sum on columns
+type demo_customers_sum_fields {
+  parentRevision: Int
+  revision: Int
+}
+
+# order by sum() on columns of table "demo.customers"
+input demo_customers_sum_order_by {
+  parentRevision: order_by
+  revision: order_by
+}
+
+# update columns of table "demo.customers"
+enum demo_customers_update_column {
+  # column name
+  endDate
+
+  # column name
+  id
+
+  # column name
+  parentId
+
+  # column name
+  parentRevision
+
+  # column name
+  revision
+
+  # column name
+  startDate
+
+  # column name
+  updatedAt
+}
+
+# aggregate var_pop on columns
+type demo_customers_var_pop_fields {
+  parentRevision: Float
+  revision: Float
+}
+
+# order by var_pop() on columns of table "demo.customers"
+input demo_customers_var_pop_order_by {
+  parentRevision: order_by
+  revision: order_by
+}
+
+# aggregate var_samp on columns
+type demo_customers_var_samp_fields {
+  parentRevision: Float
+  revision: Float
+}
+
+# order by var_samp() on columns of table "demo.customers"
+input demo_customers_var_samp_order_by {
+  parentRevision: order_by
+  revision: order_by
+}
+
+# aggregate variance on columns
+type demo_customers_variance_fields {
+  parentRevision: Float
+  revision: Float
+}
+
+# order by variance() on columns of table "demo.customers"
+input demo_customers_variance_order_by {
+  parentRevision: order_by
+  revision: order_by
+}
+
+# columns and relationships of "demo.listIdentifiers"
+type demo_listIdentifiers {
+  id: String!
+  listId: String!
+}
+
+# aggregated selection of "demo.listIdentifiers"
+type demo_listIdentifiers_aggregate {
+  aggregate: demo_listIdentifiers_aggregate_fields
+  nodes: [demo_listIdentifiers!]!
+}
+
+# aggregate fields of "demo.listIdentifiers"
+type demo_listIdentifiers_aggregate_fields {
+  count(columns: [demo_listIdentifiers_select_column!], distinct: Boolean): Int
+  max: demo_listIdentifiers_max_fields
+  min: demo_listIdentifiers_min_fields
+}
+
+# order by aggregate values of table "demo.listIdentifiers"
+input demo_listIdentifiers_aggregate_order_by {
+  count: order_by
+  max: demo_listIdentifiers_max_order_by
+  min: demo_listIdentifiers_min_order_by
+}
+
+# input type for inserting array relation for remote table "demo.listIdentifiers"
+input demo_listIdentifiers_arr_rel_insert_input {
+  data: [demo_listIdentifiers_insert_input!]!
+  on_conflict: demo_listIdentifiers_on_conflict
+}
+
+# Boolean expression to filter rows from the table "demo.listIdentifiers". All fields are combined with a logical 'AND'.
+input demo_listIdentifiers_bool_exp {
+  _and: [demo_listIdentifiers_bool_exp]
+  _not: demo_listIdentifiers_bool_exp
+  _or: [demo_listIdentifiers_bool_exp]
+  id: String_comparison_exp
+  listId: String_comparison_exp
+}
+
+# unique or primary key constraints on table "demo.listIdentifiers"
+enum demo_listIdentifiers_constraint {
+  # unique or primary key constraint
+  listIdentifiers_pkey
+}
+
+# input type for inserting data into table "demo.listIdentifiers"
+input demo_listIdentifiers_insert_input {
+  id: String
+  listId: String
+}
+
+# aggregate max on columns
+type demo_listIdentifiers_max_fields {
+  id: String
+  listId: String
+}
+
+# order by max() on columns of table "demo.listIdentifiers"
+input demo_listIdentifiers_max_order_by {
+  id: order_by
+  listId: order_by
+}
+
+# aggregate min on columns
+type demo_listIdentifiers_min_fields {
+  id: String
+  listId: String
+}
+
+# order by min() on columns of table "demo.listIdentifiers"
+input demo_listIdentifiers_min_order_by {
+  id: order_by
+  listId: order_by
+}
+
+# response of any mutation on the table "demo.listIdentifiers"
+type demo_listIdentifiers_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [demo_listIdentifiers!]!
+}
+
+# input type for inserting object relation for remote table "demo.listIdentifiers"
+input demo_listIdentifiers_obj_rel_insert_input {
+  data: demo_listIdentifiers_insert_input!
+  on_conflict: demo_listIdentifiers_on_conflict
+}
+
+# on conflict condition type for table "demo.listIdentifiers"
+input demo_listIdentifiers_on_conflict {
+  constraint: demo_listIdentifiers_constraint!
+  update_columns: [demo_listIdentifiers_update_column!]!
+  where: demo_listIdentifiers_bool_exp
+}
+
+# ordering options when selecting data from "demo.listIdentifiers"
+input demo_listIdentifiers_order_by {
+  id: order_by
+  listId: order_by
+}
+
+# select columns of table "demo.listIdentifiers"
+enum demo_listIdentifiers_select_column {
+  # column name
+  id
+
+  # column name
+  listId
+}
+
+# input type for updating data in table "demo.listIdentifiers"
+input demo_listIdentifiers_set_input {
+  id: String
+  listId: String
+}
+
+# update columns of table "demo.listIdentifiers"
+enum demo_listIdentifiers_update_column {
+  # column name
+  id
+
+  # column name
+  listId
+}
+
+# columns and relationships of "demo.lists"
+type demo_lists {
+  # An array relationship
+  customers(
+    # distinct select on columns
+    distinct_on: [demo_customerList_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerList_order_by!]
+
+    # filter the rows returned
+    where: demo_customerList_bool_exp
+  ): [demo_customerList!]!
+
+  # An aggregated array relationship
+  customers_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerList_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerList_order_by!]
+
+    # filter the rows returned
+    where: demo_customerList_bool_exp
+  ): demo_customerList_aggregate!
+  description: String
+  id: String!
+
+  # An array relationship
+  identifiers(
+    # distinct select on columns
+    distinct_on: [demo_listIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_listIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_listIdentifiers_bool_exp
+  ): [demo_listIdentifiers!]!
+
+  # An aggregated array relationship
+  identifiers_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_listIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_listIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_listIdentifiers_bool_exp
+  ): demo_listIdentifiers_aggregate!
+  name: String
+  type: String
+  updatedAt: date!
+  validationStatus: String
+}
+
+# aggregated selection of "demo.lists"
+type demo_lists_aggregate {
+  aggregate: demo_lists_aggregate_fields
+  nodes: [demo_lists!]!
+}
+
+# aggregate fields of "demo.lists"
+type demo_lists_aggregate_fields {
+  count(columns: [demo_lists_select_column!], distinct: Boolean): Int
+  max: demo_lists_max_fields
+  min: demo_lists_min_fields
+}
+
+# order by aggregate values of table "demo.lists"
+input demo_lists_aggregate_order_by {
+  count: order_by
+  max: demo_lists_max_order_by
+  min: demo_lists_min_order_by
+}
+
+# input type for inserting array relation for remote table "demo.lists"
+input demo_lists_arr_rel_insert_input {
+  data: [demo_lists_insert_input!]!
+  on_conflict: demo_lists_on_conflict
+}
+
+# Boolean expression to filter rows from the table "demo.lists". All fields are combined with a logical 'AND'.
+input demo_lists_bool_exp {
+  _and: [demo_lists_bool_exp]
+  _not: demo_lists_bool_exp
+  _or: [demo_lists_bool_exp]
+  customers: demo_customerList_bool_exp
+  description: String_comparison_exp
+  id: String_comparison_exp
+  identifiers: demo_listIdentifiers_bool_exp
+  name: String_comparison_exp
+  type: String_comparison_exp
+  updatedAt: date_comparison_exp
+  validationStatus: String_comparison_exp
+}
+
+# unique or primary key constraints on table "demo.lists"
+enum demo_lists_constraint {
+  # unique or primary key constraint
+  lists_listId_key
+
+  # unique or primary key constraint
+  lists_pkey
+}
+
+# input type for inserting data into table "demo.lists"
+input demo_lists_insert_input {
+  customers: demo_customerList_arr_rel_insert_input
+  description: String
+  id: String
+  identifiers: demo_listIdentifiers_arr_rel_insert_input
+  name: String
+  type: String
+  updatedAt: date
+  validationStatus: String
+}
+
+# aggregate max on columns
+type demo_lists_max_fields {
+  description: String
+  id: String
+  name: String
+  type: String
+  updatedAt: date
+  validationStatus: String
+}
+
+# order by max() on columns of table "demo.lists"
+input demo_lists_max_order_by {
+  description: order_by
+  id: order_by
+  name: order_by
+  type: order_by
+  updatedAt: order_by
+  validationStatus: order_by
+}
+
+# aggregate min on columns
+type demo_lists_min_fields {
+  description: String
+  id: String
+  name: String
+  type: String
+  updatedAt: date
+  validationStatus: String
+}
+
+# order by min() on columns of table "demo.lists"
+input demo_lists_min_order_by {
+  description: order_by
+  id: order_by
+  name: order_by
+  type: order_by
+  updatedAt: order_by
+  validationStatus: order_by
+}
+
+# response of any mutation on the table "demo.lists"
+type demo_lists_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [demo_lists!]!
+}
+
+# input type for inserting object relation for remote table "demo.lists"
+input demo_lists_obj_rel_insert_input {
+  data: demo_lists_insert_input!
+  on_conflict: demo_lists_on_conflict
+}
+
+# on conflict condition type for table "demo.lists"
+input demo_lists_on_conflict {
+  constraint: demo_lists_constraint!
+  update_columns: [demo_lists_update_column!]!
+  where: demo_lists_bool_exp
+}
+
+# ordering options when selecting data from "demo.lists"
+input demo_lists_order_by {
+  customers_aggregate: demo_customerList_aggregate_order_by
+  description: order_by
+  id: order_by
+  identifiers_aggregate: demo_listIdentifiers_aggregate_order_by
+  name: order_by
+  type: order_by
+  updatedAt: order_by
+  validationStatus: order_by
+}
+
+# select columns of table "demo.lists"
+enum demo_lists_select_column {
+  # column name
+  description
+
+  # column name
+  id
+
+  # column name
+  name
+
+  # column name
+  type
+
+  # column name
+  updatedAt
+
+  # column name
+  validationStatus
+}
+
+# input type for updating data in table "demo.lists"
+input demo_lists_set_input {
+  description: String
+  id: String
+  name: String
+  type: String
+  updatedAt: date
+  validationStatus: String
+}
+
+# update columns of table "demo.lists"
+enum demo_lists_update_column {
+  # column name
+  description
+
+  # column name
+  id
+
+  # column name
+  name
+
+  # column name
+  type
+
+  # column name
+  updatedAt
+
+  # column name
+  validationStatus
+}
+
+# columns and relationships of "demo.names"
+type demo_names {
+  customerId: String
+  id: String!
+  name: String!
+}
+
+# aggregated selection of "demo.names"
+type demo_names_aggregate {
+  aggregate: demo_names_aggregate_fields
+  nodes: [demo_names!]!
+}
+
+# aggregate fields of "demo.names"
+type demo_names_aggregate_fields {
+  count(columns: [demo_names_select_column!], distinct: Boolean): Int
+  max: demo_names_max_fields
+  min: demo_names_min_fields
+}
+
+# order by aggregate values of table "demo.names"
+input demo_names_aggregate_order_by {
+  count: order_by
+  max: demo_names_max_order_by
+  min: demo_names_min_order_by
+}
+
+# input type for inserting array relation for remote table "demo.names"
+input demo_names_arr_rel_insert_input {
+  data: [demo_names_insert_input!]!
+  on_conflict: demo_names_on_conflict
+}
+
+# Boolean expression to filter rows from the table "demo.names". All fields are combined with a logical 'AND'.
+input demo_names_bool_exp {
+  _and: [demo_names_bool_exp]
+  _not: demo_names_bool_exp
+  _or: [demo_names_bool_exp]
+  customerId: String_comparison_exp
+  id: String_comparison_exp
+  name: String_comparison_exp
+}
+
+# unique or primary key constraints on table "demo.names"
+enum demo_names_constraint {
+  # unique or primary key constraint
+  names_id_key
+
+  # unique or primary key constraint
+  names_pkey
+}
+
+# input type for inserting data into table "demo.names"
+input demo_names_insert_input {
+  customerId: String
+  id: String
+  name: String
+}
+
+# aggregate max on columns
+type demo_names_max_fields {
+  customerId: String
+  id: String
+  name: String
+}
+
+# order by max() on columns of table "demo.names"
+input demo_names_max_order_by {
+  customerId: order_by
+  id: order_by
+  name: order_by
+}
+
+# aggregate min on columns
+type demo_names_min_fields {
+  customerId: String
+  id: String
+  name: String
+}
+
+# order by min() on columns of table "demo.names"
+input demo_names_min_order_by {
+  customerId: order_by
+  id: order_by
+  name: order_by
+}
+
+# response of any mutation on the table "demo.names"
+type demo_names_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [demo_names!]!
+}
+
+# input type for inserting object relation for remote table "demo.names"
+input demo_names_obj_rel_insert_input {
+  data: demo_names_insert_input!
+  on_conflict: demo_names_on_conflict
+}
+
+# on conflict condition type for table "demo.names"
+input demo_names_on_conflict {
+  constraint: demo_names_constraint!
+  update_columns: [demo_names_update_column!]!
+  where: demo_names_bool_exp
+}
+
+# ordering options when selecting data from "demo.names"
+input demo_names_order_by {
+  customerId: order_by
+  id: order_by
+  name: order_by
+}
+
+# select columns of table "demo.names"
+enum demo_names_select_column {
+  # column name
+  customerId
+
+  # column name
+  id
+
+  # column name
+  name
+}
+
+# input type for updating data in table "demo.names"
+input demo_names_set_input {
+  customerId: String
+  id: String
+  name: String
+}
+
+# update columns of table "demo.names"
+enum demo_names_update_column {
+  # column name
+  customerId
+
+  # column name
+  id
+
+  # column name
+  name
+}
+
+# expression to compare columns of type Int. All fields are combined with logical 'AND'.
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+# mutation root
+type mutation_root {
+  # delete data from the table: "demo.classOfTrade"
+  delete_demo_classOfTrade(
+    # filter the rows which have to be deleted
+    where: demo_classOfTrade_bool_exp!
+  ): demo_classOfTrade_mutation_response
+
+  # delete data from the table: "demo.classOfTradeIdentifiers"
+  delete_demo_classOfTradeIdentifiers(
+    # filter the rows which have to be deleted
+    where: demo_classOfTradeIdentifiers_bool_exp!
+  ): demo_classOfTradeIdentifiers_mutation_response
+
+  # delete data from the table: "demo.customerAddresses"
+  delete_demo_customerAddresses(
+    # filter the rows which have to be deleted
+    where: demo_customerAddresses_bool_exp!
+  ): demo_customerAddresses_mutation_response
+
+  # delete data from the table: "demo.customerClassesOfTrade"
+  delete_demo_customerClassesOfTrade(
+    # filter the rows which have to be deleted
+    where: demo_customerClassesOfTrade_bool_exp!
+  ): demo_customerClassesOfTrade_mutation_response
+
+  # delete data from the table: "demo.customerIdentifiers"
+  delete_demo_customerIdentifiers(
+    # filter the rows which have to be deleted
+    where: demo_customerIdentifiers_bool_exp!
+  ): demo_customerIdentifiers_mutation_response
+
+  # delete data from the table: "demo.customerList"
+  delete_demo_customerList(
+    # filter the rows which have to be deleted
+    where: demo_customerList_bool_exp!
+  ): demo_customerList_mutation_response
+
+  # delete data from the table: "demo.customerRelationships"
+  delete_demo_customerRelationships(
+    # filter the rows which have to be deleted
+    where: demo_customerRelationships_bool_exp!
+  ): demo_customerRelationships_mutation_response
+
+  # delete data from the table: "demo.customers"
+  delete_demo_customers(
+    # filter the rows which have to be deleted
+    where: demo_customers_bool_exp!
+  ): demo_customers_mutation_response
+
+  # delete data from the table: "demo.listIdentifiers"
+  delete_demo_listIdentifiers(
+    # filter the rows which have to be deleted
+    where: demo_listIdentifiers_bool_exp!
+  ): demo_listIdentifiers_mutation_response
+
+  # delete data from the table: "demo.lists"
+  delete_demo_lists(
+    # filter the rows which have to be deleted
+    where: demo_lists_bool_exp!
+  ): demo_lists_mutation_response
+
+  # delete data from the table: "demo.names"
+  delete_demo_names(
+    # filter the rows which have to be deleted
+    where: demo_names_bool_exp!
+  ): demo_names_mutation_response
+
+  # insert data into the table: "demo.classOfTrade"
+  insert_demo_classOfTrade(
+    # the rows to be inserted
+    objects: [demo_classOfTrade_insert_input!]!
+
+    # on conflict condition
+    on_conflict: demo_classOfTrade_on_conflict
+  ): demo_classOfTrade_mutation_response
+
+  # insert data into the table: "demo.classOfTradeIdentifiers"
+  insert_demo_classOfTradeIdentifiers(
+    # the rows to be inserted
+    objects: [demo_classOfTradeIdentifiers_insert_input!]!
+
+    # on conflict condition
+    on_conflict: demo_classOfTradeIdentifiers_on_conflict
+  ): demo_classOfTradeIdentifiers_mutation_response
+
+  # insert data into the table: "demo.customerAddresses"
+  insert_demo_customerAddresses(
+    # the rows to be inserted
+    objects: [demo_customerAddresses_insert_input!]!
+
+    # on conflict condition
+    on_conflict: demo_customerAddresses_on_conflict
+  ): demo_customerAddresses_mutation_response
+
+  # insert data into the table: "demo.customerClassesOfTrade"
+  insert_demo_customerClassesOfTrade(
+    # the rows to be inserted
+    objects: [demo_customerClassesOfTrade_insert_input!]!
+
+    # on conflict condition
+    on_conflict: demo_customerClassesOfTrade_on_conflict
+  ): demo_customerClassesOfTrade_mutation_response
+
+  # insert data into the table: "demo.customerIdentifiers"
+  insert_demo_customerIdentifiers(
+    # the rows to be inserted
+    objects: [demo_customerIdentifiers_insert_input!]!
+
+    # on conflict condition
+    on_conflict: demo_customerIdentifiers_on_conflict
+  ): demo_customerIdentifiers_mutation_response
+
+  # insert data into the table: "demo.customerList"
+  insert_demo_customerList(
+    # the rows to be inserted
+    objects: [demo_customerList_insert_input!]!
+
+    # on conflict condition
+    on_conflict: demo_customerList_on_conflict
+  ): demo_customerList_mutation_response
+
+  # insert data into the table: "demo.customerRelationships"
+  insert_demo_customerRelationships(
+    # the rows to be inserted
+    objects: [demo_customerRelationships_insert_input!]!
+
+    # on conflict condition
+    on_conflict: demo_customerRelationships_on_conflict
+  ): demo_customerRelationships_mutation_response
+
+  # insert data into the table: "demo.customers"
+  insert_demo_customers(
+    # the rows to be inserted
+    objects: [demo_customers_insert_input!]!
+
+    # on conflict condition
+    on_conflict: demo_customers_on_conflict
+  ): demo_customers_mutation_response
+
+  # insert data into the table: "demo.listIdentifiers"
+  insert_demo_listIdentifiers(
+    # the rows to be inserted
+    objects: [demo_listIdentifiers_insert_input!]!
+
+    # on conflict condition
+    on_conflict: demo_listIdentifiers_on_conflict
+  ): demo_listIdentifiers_mutation_response
+
+  # insert data into the table: "demo.lists"
+  insert_demo_lists(
+    # the rows to be inserted
+    objects: [demo_lists_insert_input!]!
+
+    # on conflict condition
+    on_conflict: demo_lists_on_conflict
+  ): demo_lists_mutation_response
+
+  # insert data into the table: "demo.names"
+  insert_demo_names(
+    # the rows to be inserted
+    objects: [demo_names_insert_input!]!
+
+    # on conflict condition
+    on_conflict: demo_names_on_conflict
+  ): demo_names_mutation_response
+
+  # update data of the table: "demo.classOfTrade"
+  update_demo_classOfTrade(
+    # sets the columns of the filtered rows to the given values
+    _set: demo_classOfTrade_set_input
+
+    # filter the rows which have to be updated
+    where: demo_classOfTrade_bool_exp!
+  ): demo_classOfTrade_mutation_response
+
+  # update data of the table: "demo.classOfTradeIdentifiers"
+  update_demo_classOfTradeIdentifiers(
+    # sets the columns of the filtered rows to the given values
+    _set: demo_classOfTradeIdentifiers_set_input
+
+    # filter the rows which have to be updated
+    where: demo_classOfTradeIdentifiers_bool_exp!
+  ): demo_classOfTradeIdentifiers_mutation_response
+
+  # update data of the table: "demo.customerAddresses"
+  update_demo_customerAddresses(
+    # sets the columns of the filtered rows to the given values
+    _set: demo_customerAddresses_set_input
+
+    # filter the rows which have to be updated
+    where: demo_customerAddresses_bool_exp!
+  ): demo_customerAddresses_mutation_response
+
+  # update data of the table: "demo.customerClassesOfTrade"
+  update_demo_customerClassesOfTrade(
+    # sets the columns of the filtered rows to the given values
+    _set: demo_customerClassesOfTrade_set_input
+
+    # filter the rows which have to be updated
+    where: demo_customerClassesOfTrade_bool_exp!
+  ): demo_customerClassesOfTrade_mutation_response
+
+  # update data of the table: "demo.customerIdentifiers"
+  update_demo_customerIdentifiers(
+    # sets the columns of the filtered rows to the given values
+    _set: demo_customerIdentifiers_set_input
+
+    # filter the rows which have to be updated
+    where: demo_customerIdentifiers_bool_exp!
+  ): demo_customerIdentifiers_mutation_response
+
+  # update data of the table: "demo.customerList"
+  update_demo_customerList(
+    # sets the columns of the filtered rows to the given values
+    _set: demo_customerList_set_input
+
+    # filter the rows which have to be updated
+    where: demo_customerList_bool_exp!
+  ): demo_customerList_mutation_response
+
+  # update data of the table: "demo.customerRelationships"
+  update_demo_customerRelationships(
+    # sets the columns of the filtered rows to the given values
+    _set: demo_customerRelationships_set_input
+
+    # filter the rows which have to be updated
+    where: demo_customerRelationships_bool_exp!
+  ): demo_customerRelationships_mutation_response
+
+  # update data of the table: "demo.customers"
+  update_demo_customers(
+    # increments the integer columns with given value of the filtered values
+    _inc: demo_customers_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: demo_customers_set_input
+
+    # filter the rows which have to be updated
+    where: demo_customers_bool_exp!
+  ): demo_customers_mutation_response
+
+  # update data of the table: "demo.listIdentifiers"
+  update_demo_listIdentifiers(
+    # sets the columns of the filtered rows to the given values
+    _set: demo_listIdentifiers_set_input
+
+    # filter the rows which have to be updated
+    where: demo_listIdentifiers_bool_exp!
+  ): demo_listIdentifiers_mutation_response
+
+  # update data of the table: "demo.lists"
+  update_demo_lists(
+    # sets the columns of the filtered rows to the given values
+    _set: demo_lists_set_input
+
+    # filter the rows which have to be updated
+    where: demo_lists_bool_exp!
+  ): demo_lists_mutation_response
+
+  # update data of the table: "demo.names"
+  update_demo_names(
+    # sets the columns of the filtered rows to the given values
+    _set: demo_names_set_input
+
+    # filter the rows which have to be updated
+    where: demo_names_bool_exp!
+  ): demo_names_mutation_response
+}
+
+# column ordering options
+enum order_by {
+  # in the ascending order, nulls last
+  asc
+
+  # in the ascending order, nulls first
+  asc_nulls_first
+
+  # in the ascending order, nulls last
+  asc_nulls_last
+
+  # in the descending order, nulls first
+  desc
+
+  # in the descending order, nulls first
+  desc_nulls_first
+
+  # in the descending order, nulls last
+  desc_nulls_last
+}
+
+# query root
+type query_root {
+  # fetch data from the table: "demo.classOfTrade"
+  demo_classOfTrade(
+    # distinct select on columns
+    distinct_on: [demo_classOfTrade_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_classOfTrade_order_by!]
+
+    # filter the rows returned
+    where: demo_classOfTrade_bool_exp
+  ): [demo_classOfTrade!]!
+
+  # fetch data from the table: "demo.classOfTradeIdentifiers"
+  demo_classOfTradeIdentifiers(
+    # distinct select on columns
+    distinct_on: [demo_classOfTradeIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_classOfTradeIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_classOfTradeIdentifiers_bool_exp
+  ): [demo_classOfTradeIdentifiers!]!
+
+  # fetch aggregated fields from the table: "demo.classOfTradeIdentifiers"
+  demo_classOfTradeIdentifiers_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_classOfTradeIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_classOfTradeIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_classOfTradeIdentifiers_bool_exp
+  ): demo_classOfTradeIdentifiers_aggregate!
+
+  # fetch data from the table: "demo.classOfTradeIdentifiers" using primary key columns
+  demo_classOfTradeIdentifiers_by_pk(classOfTradeId: String!, id: String!): demo_classOfTradeIdentifiers
+
+  # fetch aggregated fields from the table: "demo.classOfTrade"
+  demo_classOfTrade_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_classOfTrade_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_classOfTrade_order_by!]
+
+    # filter the rows returned
+    where: demo_classOfTrade_bool_exp
+  ): demo_classOfTrade_aggregate!
+
+  # fetch data from the table: "demo.classOfTrade" using primary key columns
+  demo_classOfTrade_by_pk(id: String!): demo_classOfTrade
+
+  # fetch data from the table: "demo.customerAddresses"
+  demo_customerAddresses(
+    # distinct select on columns
+    distinct_on: [demo_customerAddresses_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerAddresses_order_by!]
+
+    # filter the rows returned
+    where: demo_customerAddresses_bool_exp
+  ): [demo_customerAddresses!]!
+
+  # fetch aggregated fields from the table: "demo.customerAddresses"
+  demo_customerAddresses_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerAddresses_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerAddresses_order_by!]
+
+    # filter the rows returned
+    where: demo_customerAddresses_bool_exp
+  ): demo_customerAddresses_aggregate!
+
+  # fetch data from the table: "demo.customerAddresses" using primary key columns
+  demo_customerAddresses_by_pk(id: String!): demo_customerAddresses
+
+  # fetch data from the table: "demo.customerClassesOfTrade"
+  demo_customerClassesOfTrade(
+    # distinct select on columns
+    distinct_on: [demo_customerClassesOfTrade_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerClassesOfTrade_order_by!]
+
+    # filter the rows returned
+    where: demo_customerClassesOfTrade_bool_exp
+  ): [demo_customerClassesOfTrade!]!
+
+  # fetch aggregated fields from the table: "demo.customerClassesOfTrade"
+  demo_customerClassesOfTrade_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerClassesOfTrade_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerClassesOfTrade_order_by!]
+
+    # filter the rows returned
+    where: demo_customerClassesOfTrade_bool_exp
+  ): demo_customerClassesOfTrade_aggregate!
+
+  # fetch data from the table: "demo.customerClassesOfTrade" using primary key columns
+  demo_customerClassesOfTrade_by_pk(classOfTradeId: String!, customerId: String!, endDate: date!, startDate: date!): demo_customerClassesOfTrade
+
+  # fetch data from the table: "demo.customerIdentifiers"
+  demo_customerIdentifiers(
+    # distinct select on columns
+    distinct_on: [demo_customerIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_customerIdentifiers_bool_exp
+  ): [demo_customerIdentifiers!]!
+
+  # fetch aggregated fields from the table: "demo.customerIdentifiers"
+  demo_customerIdentifiers_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_customerIdentifiers_bool_exp
+  ): demo_customerIdentifiers_aggregate!
+
+  # fetch data from the table: "demo.customerIdentifiers" using primary key columns
+  demo_customerIdentifiers_by_pk(identifier: String!): demo_customerIdentifiers
+
+  # fetch data from the table: "demo.customerList"
+  demo_customerList(
+    # distinct select on columns
+    distinct_on: [demo_customerList_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerList_order_by!]
+
+    # filter the rows returned
+    where: demo_customerList_bool_exp
+  ): [demo_customerList!]!
+
+  # fetch aggregated fields from the table: "demo.customerList"
+  demo_customerList_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerList_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerList_order_by!]
+
+    # filter the rows returned
+    where: demo_customerList_bool_exp
+  ): demo_customerList_aggregate!
+
+  # fetch data from the table: "demo.customerList" using primary key columns
+  demo_customerList_by_pk(customerId: String!, endDate: date!, listId: String!, startDate: date!): demo_customerList
+
+  # fetch data from the table: "demo.customerRelationships"
+  demo_customerRelationships(
+    # distinct select on columns
+    distinct_on: [demo_customerRelationships_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerRelationships_order_by!]
+
+    # filter the rows returned
+    where: demo_customerRelationships_bool_exp
+  ): [demo_customerRelationships!]!
+
+  # fetch aggregated fields from the table: "demo.customerRelationships"
+  demo_customerRelationships_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerRelationships_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerRelationships_order_by!]
+
+    # filter the rows returned
+    where: demo_customerRelationships_bool_exp
+  ): demo_customerRelationships_aggregate!
+
+  # fetch data from the table: "demo.customerRelationships" using primary key columns
+  demo_customerRelationships_by_pk(fromId: String!, toId: String!): demo_customerRelationships
+
+  # fetch data from the table: "demo.customers"
+  demo_customers(
+    # distinct select on columns
+    distinct_on: [demo_customers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customers_order_by!]
+
+    # filter the rows returned
+    where: demo_customers_bool_exp
+  ): [demo_customers!]!
+
+  # fetch aggregated fields from the table: "demo.customers"
+  demo_customers_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customers_order_by!]
+
+    # filter the rows returned
+    where: demo_customers_bool_exp
+  ): demo_customers_aggregate!
+
+  # fetch data from the table: "demo.customers" using primary key columns
+  demo_customers_by_pk(id: String!, revision: Int!): demo_customers
+
+  # fetch data from the table: "demo.listIdentifiers"
+  demo_listIdentifiers(
+    # distinct select on columns
+    distinct_on: [demo_listIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_listIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_listIdentifiers_bool_exp
+  ): [demo_listIdentifiers!]!
+
+  # fetch aggregated fields from the table: "demo.listIdentifiers"
+  demo_listIdentifiers_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_listIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_listIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_listIdentifiers_bool_exp
+  ): demo_listIdentifiers_aggregate!
+
+  # fetch data from the table: "demo.listIdentifiers" using primary key columns
+  demo_listIdentifiers_by_pk(id: String!, listId: String!): demo_listIdentifiers
+
+  # fetch data from the table: "demo.lists"
+  demo_lists(
+    # distinct select on columns
+    distinct_on: [demo_lists_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_lists_order_by!]
+
+    # filter the rows returned
+    where: demo_lists_bool_exp
+  ): [demo_lists!]!
+
+  # fetch aggregated fields from the table: "demo.lists"
+  demo_lists_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_lists_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_lists_order_by!]
+
+    # filter the rows returned
+    where: demo_lists_bool_exp
+  ): demo_lists_aggregate!
+
+  # fetch data from the table: "demo.lists" using primary key columns
+  demo_lists_by_pk(id: String!): demo_lists
+
+  # fetch data from the table: "demo.names"
+  demo_names(
+    # distinct select on columns
+    distinct_on: [demo_names_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_names_order_by!]
+
+    # filter the rows returned
+    where: demo_names_bool_exp
+  ): [demo_names!]!
+
+  # fetch aggregated fields from the table: "demo.names"
+  demo_names_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_names_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_names_order_by!]
+
+    # filter the rows returned
+    where: demo_names_bool_exp
+  ): demo_names_aggregate!
+
+  # fetch data from the table: "demo.names" using primary key columns
+  demo_names_by_pk(id: String!): demo_names
+}
+
+# expression to compare columns of type String. All fields are combined with logical 'AND'.
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+# subscription root
+type subscription_root {
+  # fetch data from the table: "demo.classOfTrade"
+  demo_classOfTrade(
+    # distinct select on columns
+    distinct_on: [demo_classOfTrade_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_classOfTrade_order_by!]
+
+    # filter the rows returned
+    where: demo_classOfTrade_bool_exp
+  ): [demo_classOfTrade!]!
+
+  # fetch data from the table: "demo.classOfTradeIdentifiers"
+  demo_classOfTradeIdentifiers(
+    # distinct select on columns
+    distinct_on: [demo_classOfTradeIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_classOfTradeIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_classOfTradeIdentifiers_bool_exp
+  ): [demo_classOfTradeIdentifiers!]!
+
+  # fetch aggregated fields from the table: "demo.classOfTradeIdentifiers"
+  demo_classOfTradeIdentifiers_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_classOfTradeIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_classOfTradeIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_classOfTradeIdentifiers_bool_exp
+  ): demo_classOfTradeIdentifiers_aggregate!
+
+  # fetch data from the table: "demo.classOfTradeIdentifiers" using primary key columns
+  demo_classOfTradeIdentifiers_by_pk(classOfTradeId: String!, id: String!): demo_classOfTradeIdentifiers
+
+  # fetch aggregated fields from the table: "demo.classOfTrade"
+  demo_classOfTrade_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_classOfTrade_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_classOfTrade_order_by!]
+
+    # filter the rows returned
+    where: demo_classOfTrade_bool_exp
+  ): demo_classOfTrade_aggregate!
+
+  # fetch data from the table: "demo.classOfTrade" using primary key columns
+  demo_classOfTrade_by_pk(id: String!): demo_classOfTrade
+
+  # fetch data from the table: "demo.customerAddresses"
+  demo_customerAddresses(
+    # distinct select on columns
+    distinct_on: [demo_customerAddresses_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerAddresses_order_by!]
+
+    # filter the rows returned
+    where: demo_customerAddresses_bool_exp
+  ): [demo_customerAddresses!]!
+
+  # fetch aggregated fields from the table: "demo.customerAddresses"
+  demo_customerAddresses_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerAddresses_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerAddresses_order_by!]
+
+    # filter the rows returned
+    where: demo_customerAddresses_bool_exp
+  ): demo_customerAddresses_aggregate!
+
+  # fetch data from the table: "demo.customerAddresses" using primary key columns
+  demo_customerAddresses_by_pk(id: String!): demo_customerAddresses
+
+  # fetch data from the table: "demo.customerClassesOfTrade"
+  demo_customerClassesOfTrade(
+    # distinct select on columns
+    distinct_on: [demo_customerClassesOfTrade_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerClassesOfTrade_order_by!]
+
+    # filter the rows returned
+    where: demo_customerClassesOfTrade_bool_exp
+  ): [demo_customerClassesOfTrade!]!
+
+  # fetch aggregated fields from the table: "demo.customerClassesOfTrade"
+  demo_customerClassesOfTrade_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerClassesOfTrade_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerClassesOfTrade_order_by!]
+
+    # filter the rows returned
+    where: demo_customerClassesOfTrade_bool_exp
+  ): demo_customerClassesOfTrade_aggregate!
+
+  # fetch data from the table: "demo.customerClassesOfTrade" using primary key columns
+  demo_customerClassesOfTrade_by_pk(classOfTradeId: String!, customerId: String!, endDate: date!, startDate: date!): demo_customerClassesOfTrade
+
+  # fetch data from the table: "demo.customerIdentifiers"
+  demo_customerIdentifiers(
+    # distinct select on columns
+    distinct_on: [demo_customerIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_customerIdentifiers_bool_exp
+  ): [demo_customerIdentifiers!]!
+
+  # fetch aggregated fields from the table: "demo.customerIdentifiers"
+  demo_customerIdentifiers_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_customerIdentifiers_bool_exp
+  ): demo_customerIdentifiers_aggregate!
+
+  # fetch data from the table: "demo.customerIdentifiers" using primary key columns
+  demo_customerIdentifiers_by_pk(identifier: String!): demo_customerIdentifiers
+
+  # fetch data from the table: "demo.customerList"
+  demo_customerList(
+    # distinct select on columns
+    distinct_on: [demo_customerList_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerList_order_by!]
+
+    # filter the rows returned
+    where: demo_customerList_bool_exp
+  ): [demo_customerList!]!
+
+  # fetch aggregated fields from the table: "demo.customerList"
+  demo_customerList_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerList_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerList_order_by!]
+
+    # filter the rows returned
+    where: demo_customerList_bool_exp
+  ): demo_customerList_aggregate!
+
+  # fetch data from the table: "demo.customerList" using primary key columns
+  demo_customerList_by_pk(customerId: String!, endDate: date!, listId: String!, startDate: date!): demo_customerList
+
+  # fetch data from the table: "demo.customerRelationships"
+  demo_customerRelationships(
+    # distinct select on columns
+    distinct_on: [demo_customerRelationships_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerRelationships_order_by!]
+
+    # filter the rows returned
+    where: demo_customerRelationships_bool_exp
+  ): [demo_customerRelationships!]!
+
+  # fetch aggregated fields from the table: "demo.customerRelationships"
+  demo_customerRelationships_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customerRelationships_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customerRelationships_order_by!]
+
+    # filter the rows returned
+    where: demo_customerRelationships_bool_exp
+  ): demo_customerRelationships_aggregate!
+
+  # fetch data from the table: "demo.customerRelationships" using primary key columns
+  demo_customerRelationships_by_pk(fromId: String!, toId: String!): demo_customerRelationships
+
+  # fetch data from the table: "demo.customers"
+  demo_customers(
+    # distinct select on columns
+    distinct_on: [demo_customers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customers_order_by!]
+
+    # filter the rows returned
+    where: demo_customers_bool_exp
+  ): [demo_customers!]!
+
+  # fetch aggregated fields from the table: "demo.customers"
+  demo_customers_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_customers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_customers_order_by!]
+
+    # filter the rows returned
+    where: demo_customers_bool_exp
+  ): demo_customers_aggregate!
+
+  # fetch data from the table: "demo.customers" using primary key columns
+  demo_customers_by_pk(id: String!, revision: Int!): demo_customers
+
+  # fetch data from the table: "demo.listIdentifiers"
+  demo_listIdentifiers(
+    # distinct select on columns
+    distinct_on: [demo_listIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_listIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_listIdentifiers_bool_exp
+  ): [demo_listIdentifiers!]!
+
+  # fetch aggregated fields from the table: "demo.listIdentifiers"
+  demo_listIdentifiers_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_listIdentifiers_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_listIdentifiers_order_by!]
+
+    # filter the rows returned
+    where: demo_listIdentifiers_bool_exp
+  ): demo_listIdentifiers_aggregate!
+
+  # fetch data from the table: "demo.listIdentifiers" using primary key columns
+  demo_listIdentifiers_by_pk(id: String!, listId: String!): demo_listIdentifiers
+
+  # fetch data from the table: "demo.lists"
+  demo_lists(
+    # distinct select on columns
+    distinct_on: [demo_lists_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_lists_order_by!]
+
+    # filter the rows returned
+    where: demo_lists_bool_exp
+  ): [demo_lists!]!
+
+  # fetch aggregated fields from the table: "demo.lists"
+  demo_lists_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_lists_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_lists_order_by!]
+
+    # filter the rows returned
+    where: demo_lists_bool_exp
+  ): demo_lists_aggregate!
+
+  # fetch data from the table: "demo.lists" using primary key columns
+  demo_lists_by_pk(id: String!): demo_lists
+
+  # fetch data from the table: "demo.names"
+  demo_names(
+    # distinct select on columns
+    distinct_on: [demo_names_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_names_order_by!]
+
+    # filter the rows returned
+    where: demo_names_bool_exp
+  ): [demo_names!]!
+
+  # fetch aggregated fields from the table: "demo.names"
+  demo_names_aggregate(
+    # distinct select on columns
+    distinct_on: [demo_names_select_column!]
+
+    # limit the number of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [demo_names_order_by!]
+
+    # filter the rows returned
+    where: demo_names_bool_exp
+  ): demo_names_aggregate!
+
+  # fetch data from the table: "demo.names" using primary key columns
+  demo_names_by_pk(id: String!): demo_names
+}
+

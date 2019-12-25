@@ -1,0 +1,56 @@
+query AllCustomers {
+  demo_customers {
+    updatedAt
+    startDate
+    revision
+    id
+    endDate
+    names {
+      name
+    }
+    lists {
+      list {
+        description
+        id
+        name
+        type
+        updatedAt
+        validationStatus
+        identifiers {
+          id
+        }
+      }
+    }
+    identifiers {
+      identifier
+    }
+    classesOfTrade {
+      classOfTrade {
+        authority
+        description
+        endDate
+        id
+        mediledgerId
+        name
+        startDate
+        updatedAt
+        validationStatus
+        identifiers {
+          classOfTradeId
+        }
+      }
+    }
+    addresses {
+      address1
+      address2
+      addressType
+      city
+      customerId
+      endDate
+      id
+      startDate
+      state
+      zipCode
+    }
+  }
+}
