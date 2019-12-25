@@ -1,7 +1,7 @@
-use futures::prelude::*;
+use seed::{*, prelude::*};
 use seed::browser::service::fetch::ResponseDataResult;
-use seed::{prelude::*, *};
 use serde::{Deserialize, Serialize};
+
 // Model
 
 struct Model {
