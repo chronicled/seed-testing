@@ -38,7 +38,7 @@ pub struct CustomerFetchResult {
 #[derive(Clone)]
 enum Msg {
     FetchCustomers,
-    CustomerResultFetched(ResponseDataResult<CustomerFetchResult>),
+    CustomerResultFetched(Box<ResponseDataResult<CustomerFetchResult>>),
 }
 
 fn update(msg: Msg, model: &mut Model, orders: &mut impl Orders<Msg>) {
@@ -47,12 +47,15 @@ fn update(msg: Msg, model: &mut Model, orders: &mut impl Orders<Msg>) {
             model.customers = None;
             orders.perform_cmd(fetch_customers(all_customers::Variables {}));
         }
-        Msg::CustomerResultFetched(Ok(response_data)) => {
-            model.customers = Some(response_data);
-        }
-        Msg::CustomerResultFetched(Err(fail_reason)) => {
-            model.customers = None;
-            error!(fail_reason);
+        Msg::CustomerResultFetched(response_data) => {
+            let raw = Box::leak(response_data);
+            if let Ok(customers) = raw {
+                model.customers = Some(customers.clone());
+            }
+            if let Err(fail_reason) = raw {
+                model.customers = None;
+                error!(fail_reason);
+            }
         }
     }
 }
@@ -142,6 +145,6 @@ async fn fetch_customers(variables: all_customers::Variables) -> Result<Msg, Msg
     Request::new("https://hasura.yolo.dev.chronicledtest.net/v1/graphql".to_string())
         .method(Post)
         .body_json(&request_body)
-        .fetch_json_data(Msg::CustomerResultFetched)
+        .fetch_json_data(|response| Msg::CustomerResultFetched(Box::new(response)))
         .await
 }
