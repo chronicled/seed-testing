@@ -15,7 +15,7 @@ failure = "0.1.6"
 futures = {version = "0.3.1", features = ['compat'] }
 graphql_client = "0.8"
 reqwest = { version = "0.10.0-alpha.2", features = ['json'] }
-seed = { git = "https://github.com/seed-rs/seed" }
+seed = "0.5"
 serde = { version = "^1.0.85", features = ['derive'] }
 serde_json = "1.0.44"
 wasm-bindgen = "^0.2.50"
