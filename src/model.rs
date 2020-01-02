@@ -46,6 +46,6 @@ pub struct AllCustomersFetchResult {
 
 #[derive(Clone, Deserialize, Debug)]
 pub struct CustomerFetchResult {
-  pub data: Option<crate::graphql::customer::all_customers::ResponseData>,
+  pub data: Option<crate::graphql::customer::customer::ResponseData>,
   pub errors: Option<Vec<graphql_client::Error>>,
 }

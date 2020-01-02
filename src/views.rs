@@ -6,7 +6,7 @@ use seed::{prelude::*, *};
 
 pub fn index_view(model: &Model) -> impl View<Msg> {
   div![
-    h1![
+    a![
       simple_ev(Ev::Click, Msg::RouteHomePage),
       "GraphQL Rust Example"
     ],
