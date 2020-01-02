@@ -7,10 +7,11 @@ pub fn all_customers_view(model: &Model) -> Node<Msg> {
         if let Some(data) = &customers.data {
             for customer in &data.demo_customers {
                 customer_rows.push(tr![
-                    td![
+                    td![a![
+                        attrs! {At::Class => ".uk-text-primary"},
                         simple_ev(Ev::Click, Msg::RouteCustomerPage(customer.id.clone())),
                         customer.id
-                    ],
+                    ]],
                     td![customer
                         .names
                         .clone()
@@ -59,6 +60,6 @@ pub fn all_customers_view(model: &Model) -> Node<Msg> {
             customer_rows
         ]]
     } else {
-        div![]
+        div![attrs! {At::AttributeName => "uk-spinner"}]
     }
 }

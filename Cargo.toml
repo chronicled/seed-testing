@@ -10,18 +10,18 @@ crate-type = ["cdylib"]
 
 
 [dependencies]
-chrono = { version = "0.4", features = ["serde"] }
+chrono = { version = "0.4.10", features = ["serde"] }
 failure = "0.1.6"
-futures = {version = "0.3.1", features = ['compat'] }
-graphql_client = "0.8"
-reqwest = { version = "0.10.0-alpha.2", features = ['json'] }
-seed = "0.5"
-serde = { version = "^1.0.85", features = ['derive'] }
+futures = { version = "0.3.1", features = ['compat'] }
+graphql_client = "0.8.0"
+reqwest = { version = "0.10.0", features = ['json'] }
+seed = "0.5.1"
+serde = { version = "1.0.104", features = ['derive'] }
 serde_json = "1.0.44"
-wasm-bindgen = "^0.2.50"
+wasm-bindgen = "0.2.56"
 
 [dev-dependencies]
-wasm-bindgen-test = "0.2.50" # NOTE: keep in sync with wasm-bindgen version
+wasm-bindgen-test = "0.3.6"
 
 
 [profile.release]  # Attempts to minimize file size

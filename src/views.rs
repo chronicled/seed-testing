@@ -15,5 +15,9 @@ pub fn index_view(model: &Model) -> impl View<Msg> {
       Page::Customer => customer::customer_view(&model),
       _ => home::home_view(&model),
     },
+    div![
+      attrs! {At::Class => "uk-card"},
+      format!("Current page: {:?}", model.page)
+    ]
   ]
 }

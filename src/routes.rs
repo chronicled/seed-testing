@@ -11,9 +11,10 @@ pub fn routes(url: Url) -> Option<Msg> {
       // Determine if we're at the main guide page, or a subpage
       match url.path.get(1) {
         Some(id) => Msg::ChangeCustomerPage(id.to_string()),
-        None => Msg::CustomersPage,
+        None => Msg::HomePage,
       }
     }
+    "customers" => Msg::CustomersPage,
     _ => Msg::HomePage,
   })
 }

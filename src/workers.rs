@@ -12,7 +12,10 @@ pub fn update(msg: Msg, model: &mut Model, orders: &mut impl Orders<Msg>) {
       customer::update_all_customers(response_data, model);
     }
     Msg::HomePage => model.page = Page::Home,
-    Msg::CustomersPage => model.page = Page::Customers,
+    Msg::CustomersPage => {
+      model.page = Page::Customers;
+      orders.skip().send_msg(Msg::FetchCustomers);
+    }
     Msg::ChangeCustomerPage(customer_id) => {
       model.customer = None;
       model.page = Page::Customer;
@@ -24,16 +27,15 @@ pub fn update(msg: Msg, model: &mut Model, orders: &mut impl Orders<Msg>) {
       customer::update_customer(response_data, model);
     }
     Msg::RouteCustomerPage(customer_id) => {
-      seed::push_route(vec![format!("/customer/{}", customer_id)]);
+      seed::push_route(vec!["customer".to_string(), customer_id.clone()]);
       orders.skip().send_msg(Msg::ChangeCustomerPage(customer_id));
     }
     Msg::RouteCustomersPage => {
-      seed::push_route(vec!["/customers".to_string()]);
-      orders.skip().send_msg(Msg::FetchCustomers);
+      seed::push_route(vec!["customers".to_string()]);
       orders.skip().send_msg(Msg::CustomersPage);
     }
     Msg::RouteHomePage => {
-      seed::push_route(vec!["/".to_string()]);
+      seed::push_route(vec!["".to_string()]);
       orders.skip().send_msg(Msg::HomePage);
     }
   }

@@ -8,6 +8,7 @@ pub struct Model {
   pub customer: Option<CustomerFetchResult>,
 }
 
+#[derive(Debug)]
 pub enum Page {
   Home,
   Customers,
