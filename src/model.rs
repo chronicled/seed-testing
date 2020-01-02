@@ -12,7 +12,6 @@ pub enum Page {
   Home,
   Customers,
   Customer,
-  Loading,
 }
 
 impl Default for Model {
@@ -27,13 +26,15 @@ impl Default for Model {
 
 #[derive(Clone)]
 pub enum Msg {
-  FetchCustomers,
   AllCustomersResultFetched(Box<ResponseDataResult<AllCustomersFetchResult>>),
+  ChangeCustomerPage(String),
   CustomerResultFetched(Box<ResponseDataResult<CustomerFetchResult>>),
   CustomersPage,
+  FetchCustomers,
   HomePage,
-  CustomerPage,
-  ChangeCustomerPage(String),
+  RouteCustomerPage(String),
+  RouteCustomersPage,
+  RouteHomePage,
 }
 
 #[derive(Clone, Deserialize, Debug)]

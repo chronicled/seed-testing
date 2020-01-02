@@ -7,7 +7,10 @@ pub fn all_customers_view(model: &Model) -> Node<Msg> {
         if let Some(data) = &customers.data {
             for customer in &data.demo_customers {
                 customer_rows.push(tr![
-                    td![customer.id],
+                    td![
+                        simple_ev(Ev::Click, Msg::RouteCustomerPage(customer.id.clone())),
+                        customer.id
+                    ],
                     td![customer
                         .names
                         .clone()
